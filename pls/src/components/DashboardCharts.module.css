@@ -1,0 +1,151 @@
+.chartsContainer {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.chartCard {
+  background: var(--bg-secondary);
+  border: 1px solid var(--bg-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-premium);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.chartTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chartSubtitle {
+  font-size: 0.8rem;
+  color: var(--fg-secondary);
+}
+
+.chartWrapper {
+  position: relative;
+  width: 100%;
+  height: 200px;
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.gridLines line {
+  stroke: var(--bg-tertiary);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+.linePath {
+  stroke: var(--accent-color);
+  stroke-width: 3;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0px 2px 8px var(--accent-glow));
+}
+
+.areaPath {
+  fill: url(#gradient-mileage);
+  opacity: 0.15;
+}
+
+.chartPoint {
+  fill: var(--bg-secondary);
+  stroke: var(--accent-color);
+  stroke-width: 3;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.chartPoint:hover {
+  r: 7;
+  fill: var(--accent-color);
+}
+
+.labelX, .labelY {
+  font-size: 0.65rem;
+  fill: var(--fg-secondary);
+  font-family: var(--font-mono);
+}
+
+/* Distribution / Health Overview styles */
+.healthList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  height: 100%;
+}
+
+.healthRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.healthRowHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.healthLabel {
+  color: var(--fg-secondary);
+}
+
+.healthValue {
+  color: var(--fg-primary);
+  font-family: var(--font-mono);
+}
+
+.progressBarContainer {
+  height: 8px;
+  background: var(--bg-primary);
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  border-radius: var(--border-radius-sm);
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progressPassed {
+  background-color: var(--status-passed);
+  box-shadow: 0 0 8px var(--status-passed-glow);
+}
+
+.progressWarning {
+  background-color: var(--status-warning);
+  box-shadow: 0 0 8px var(--status-warning-glow);
+}
+
+.progressFailed {
+  background-color: var(--status-failed);
+  box-shadow: 0 0 8px var(--status-failed-glow);
+}
+
+.progressPending {
+  background-color: var(--status-pending);
+}
+
+@media (max-width: 900px) {
+  .chartsContainer {
+    grid-template-columns: 1fr;
+  }
+}

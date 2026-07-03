@@ -1,0 +1,280 @@
+.timelineContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+}
+
+.timelineCard {
+  background: var(--bg-secondary);
+  border: 1px solid var(--bg-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-premium);
+  transition: var(--transition-smooth);
+  position: relative;
+}
+
+.timelineCard:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.date {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid transparent;
+}
+
+.badgePassed {
+  background-color: var(--status-passed-glow);
+  color: var(--status-passed);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.badgeConditional {
+  background-color: var(--status-warning-glow);
+  color: var(--status-warning);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.badgeFailed {
+  background-color: var(--status-failed-glow);
+  color: var(--status-failed);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.metaGrid {
+  display: flex;
+  gap: 2rem;
+  color: var(--fg-secondary);
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  font-family: var(--font-mono);
+}
+
+.metaItem strong {
+  color: var(--fg-primary);
+}
+
+.notes {
+  background: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: var(--fg-secondary);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.expandButton {
+  background: none;
+  border: none;
+  color: var(--accent-color);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0;
+  transition: var(--transition-smooth);
+}
+
+.expandButton:hover {
+  color: #ea580c;
+  text-shadow: 0 0 8px var(--accent-glow);
+}
+
+.itemsDrawer {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--bg-tertiary);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.drawerTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.itemsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.75rem;
+}
+
+.itemStatusRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--bg-tertiary);
+  border-radius: var(--border-radius-md);
+  font-size: 0.85rem;
+}
+
+.itemMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.itemName {
+  font-weight: 600;
+  color: var(--fg-primary);
+}
+
+.itemSubtext {
+  font-size: 0.75rem;
+  color: var(--fg-muted);
+}
+
+.statusIndicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.dotPassed {
+  background-color: var(--status-passed);
+  box-shadow: 0 0 8px var(--status-passed);
+}
+
+.dotWarning {
+  background-color: var(--status-warning);
+  box-shadow: 0 0 8px var(--status-warning);
+}
+
+.dotFailed {
+  background-color: var(--status-failed);
+  box-shadow: 0 0 8px var(--status-failed);
+}
+
+.dotPending {
+  background-color: var(--status-pending);
+}
+
+.cardActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btnEdit {
+  background: none;
+  border: 1px solid var(--bg-tertiary);
+  color: var(--fg-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: var(--transition-smooth);
+}
+
+.btnEdit:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.btnDelete {
+  background: none;
+  border: 1px solid var(--bg-tertiary);
+  color: var(--fg-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: var(--transition-smooth);
+}
+
+.btnDelete:hover {
+  border-color: var(--status-failed);
+  color: var(--status-failed);
+}
+
+.emptyState {
+  background: var(--bg-secondary);
+  border: 1px dashed var(--bg-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 4rem 2rem;
+  text-align: center;
+  color: var(--fg-secondary);
+}
+
+.emptyTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .cardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .metaGrid {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
