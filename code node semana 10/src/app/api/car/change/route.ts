@@ -29,7 +29,7 @@ export async function POST(request: Request) {
       const createdCar = await db.prepare(`
         INSERT INTO car_profile (make, model, engine, year, license_plate, vin, mileage, last_revision_date, is_active)
         VALUES (?, ?, ?, ?, ?, ?, ?, NULL, 1)
-      `).run(make, model, engine || null, year, license_plate, vin || null, mileage);
+      `).run(make, model, engine || null, year, license_plate, vin || null, mileage) as { lastInsertRowid?: number | bigint };
 
       await db.prepare('UPDATE car_profile SET is_active = CASE WHEN id = ? THEN 1 ELSE 0 END').run(createdCar.lastInsertRowid);
       return createdCar.lastInsertRowid;

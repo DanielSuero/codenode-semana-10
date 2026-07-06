@@ -88,4 +88,4 @@ Durante el desarrollo de este proyecto, he utilizado Github Copilot (integrado e
 - Ideas para el diseño de la pagina.
 - Corrección de faltas de ortografía.
 
-Todo el código sugerido por la IA ha sido analizado, modificado manualmente para encajar con la lógica de mi proyecto, y probado exhaustivamente para garantizar su correcto funcionamiento.
+Todo el código sugerido por la IA ha sido analizado, modificado manualmente para encajar con la lógica de mi proyecto.

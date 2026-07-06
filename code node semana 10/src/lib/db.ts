@@ -2,10 +2,15 @@ import path from 'path';
 import fs from 'fs';
 import postgres from 'postgres';
 
+interface RunResult {
+  changes: number;
+  lastInsertRowid?: number | bigint;
+}
+
 interface StatementLike {
   get: (...params: unknown[]) => Promise<unknown> | unknown;
   all: (...params: unknown[]) => Promise<unknown[]> | unknown[];
-  run: (...params: unknown[]) => Promise<{ changes: number; lastInsertRowid?: number }> | { changes: number; lastInsertRowid?: number };
+  run: (...params: unknown[]) => Promise<RunResult> | RunResult;
 }
 
 interface DbAdapter {
@@ -74,7 +79,7 @@ class SqliteAdapter implements DbAdapter {
 }
 
 class PostgresAdapter implements DbAdapter {
-  private readonly connection: ReturnType<typeof postgres>;
+  private readonly connection: any;
   private readonly ready: Promise<void>;
 
   constructor() {
@@ -182,20 +187,20 @@ class PostgresAdapter implements DbAdapter {
       get: async (...params: unknown[]) => {
         await this.ensureReady();
         const { text, values } = convertToPostgresQuery(sql, params);
-        const rows = await this.connection.unsafe(text, ...values);
+        const rows = await (this.connection as any).unsafe(text, ...(values as any[]));
         return rows[0] as unknown;
       },
       all: async (...params: unknown[]) => {
         await this.ensureReady();
         const { text, values } = convertToPostgresQuery(sql, params);
-        return this.connection.unsafe(text, ...values) as Promise<unknown[]>;
+        return (this.connection as any).unsafe(text, ...(values as any[])) as Promise<unknown[]>;
       },
       run: async (...params: unknown[]) => {
         await this.ensureReady();
         const { text, values } = convertToPostgresQuery(sql, params);
         const isInsert = /^\s*INSERT\b/i.test(text);
         const queryText = isInsert && !/\bRETURNING\b/i.test(text) ? `${text} RETURNING id` : text;
-        const result = await this.connection.unsafe(queryText, ...values);
+        const result = await (this.connection as any).unsafe(queryText, ...(values as any[]));
         const rows = Array.isArray(result) ? result : [];
         const lastInsertRowid = rows[0]?.id ?? undefined;
         return { changes: rows.length, lastInsertRowid };
@@ -209,11 +214,11 @@ class PostgresAdapter implements DbAdapter {
   }
 
   exec(sql: string): void {
-    void this.connection.unsafe(sql);
+    void (this.connection as any).unsafe(sql);
   }
 
   close(): void {
-    void this.connection.end();
+    void (this.connection as any).end();
   }
 }
 
@@ -293,9 +298,9 @@ if (!usePostgres) {
     const createdCar = sqliteDb.prepare(`
       INSERT INTO car_profile (make, model, engine, year, license_plate, vin, mileage, last_revision_date, is_active)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `).run('Porsche', '911 Carrera S (992)', '3.0 T Biturbo 450 CV', 2022, '911-DBX', 'WP0AD2A9XNS254911', 24500, '2026-01-15', 1);
+    `).run('Porsche', '911 Carrera S (992)', '3.0 T Biturbo 450 CV', 2022, '911-DBX', 'WP0AD2A9XNS254911', 24500, '2026-01-15', 1) as RunResult;
 
-    const createdCarId = Number(createdCar.lastInsertRowid);
+    const createdCarId = Number(createdCar.lastInsertRowid ?? 0);
     sqliteDb.prepare(`
       INSERT INTO revisions (id, date, mileage, inspector_name, notes, status, car_id)
       VALUES (?, ?, ?, ?, ?, ?, ?)
